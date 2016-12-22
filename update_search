@@ -12,20 +12,20 @@ print_message = "Trailer Released!"
 def main():
 
     """ Input params """
-    key = "lbQfNlaF2U2Nts5Dzvc8WAe7W"
-    secret = "WsYeW6O35Do9uVzs5nIzwaWlCO7un1mbdnvBsYuzJoIK0Q7fSB"
-    token_key = "811592817701064704-wA0vszq0FVPImqe6VSCqcjq1paXH4vX"
-    token_secret = "oo3gjnyB8D6ADLPM0RR1JOoQAEVJjmjqDKYbPxIwIWvnL"
-    search_term = "justiceleaguewb"
-    keyword = ["trailer","justice", "league"]
+    key = <Twitter api key>
+    secret = <Twitter api secret>
+    token_key = <Twitter token key>
+    token_secret = <Twitter token secret>
+    search_term = <search query>
+    keyword = [<put keywords here >]
 
     """Twilio Account Params to = Recipient's phone number, from = Sender's phone number,
     body = SMS message body """
-    account = 'AC2191e98ca4bf63dff95bb5e8c1de3275'
-    token = '51508e9bacf124f4633c617c24178fd4'
-    to="+61411506818"
-    from_number="+61438212394"
-    body="Justice League is out! Check the trailer!"
+    account = <Twilio Account ID>
+    token = <Twilio Account Token>
+    to= <Receipient phone number>
+    from_number= <Send Phone number>
+    body= <Message body>
 
 
     # Get the twitter results

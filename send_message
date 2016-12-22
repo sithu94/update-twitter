@@ -5,14 +5,14 @@ Credit to Twilio API: https://www.twilio.com/
 """
 from twilio.rest import TwilioRestClient
 
-account = 'AC2191e98ca4bf63dff95bb5e8c1de3275'
-token = '51508e9bacf124f4633c617c24178fd4'
+account = <Twilio Account ID>
+token = <Twilio Account token>
 
 """ to = Recipient's phone number, from = Sender's phone number,
 body = SMS message body """
-to="+61411506818"
-from_number="+61438212394"
-body="Justice League is out! Check the trailer!"
+to= <Receipient number>
+from_number= <Sender number>
+body= <Message body>
 
 def python_sms(to,from_number,body):
     # Authentication
