@@ -1,0 +1,33 @@
+""" Function: Get the latest movie trailer release by searching the twiiter feed
+Date: 23rd December 2016
+Credit to Python-Twitter module: https://github.com/bear/python-twitter
+"""
+import sys,os
+sys.path.append('/Home/Python Projects/Youtube_search/')
+import twitter
+import update_search
+
+def twitter_search(key,secret,token_key,token_secret,search_term,keyword):
+
+    # Initialize a flag to show that there is a trailer
+    flag = 0
+
+    #  Create Twitter API class  with authentication
+    api = twitter.Api(consumer_key= key,
+                      consumer_secret= secret,
+                      access_token_key= token_key,
+                      access_token_secret= token_secret)
+
+    # Initialiize the API search by the search query
+    result = api.GetSearch(search_term,result_type='top',count=100)
+
+    # Filter the search results
+    for i in result:
+        screen_name = i.user.screen_name
+        # If the search term matches up
+        if (screen_name == search_term):
+            # Check if the keyword is  in title
+            if (keyword[0] in i.text.lower()) & (keyword[1] in i.text.lower()) & (keyword[2] in i.text.lower()):
+                flag = 1
+
+    return(flag)

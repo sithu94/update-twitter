@@ -1,0 +1,79 @@
+""" Function:  Send notifiction every time there is an update of a specific news
+at a particular twitter feed
+Date: 22nd December 2016
+Credit to Python-Twitter module: https://github.com/bear/python-twitter
+Credit to Twilio API: https://www.twilio.com/
+"""
+import twitter
+from twilio.rest import TwilioRestClient
+import sys
+print_message = "Trailer Released!"
+# Main
+def main():
+
+    """ Input params """
+    key = "lbQfNlaF2U2Nts5Dzvc8WAe7W"
+    secret = "WsYeW6O35Do9uVzs5nIzwaWlCO7un1mbdnvBsYuzJoIK0Q7fSB"
+    token_key = "811592817701064704-wA0vszq0FVPImqe6VSCqcjq1paXH4vX"
+    token_secret = "oo3gjnyB8D6ADLPM0RR1JOoQAEVJjmjqDKYbPxIwIWvnL"
+    search_term = "justiceleaguewb"
+    keyword = ["trailer","justice", "league"]
+
+    """Twilio Account Params to = Recipient's phone number, from = Sender's phone number,
+    body = SMS message body """
+    account = 'AC2191e98ca4bf63dff95bb5e8c1de3275'
+    token = '51508e9bacf124f4633c617c24178fd4'
+    to="+61411506818"
+    from_number="+61438212394"
+    body="Justice League is out! Check the trailer!"
+
+
+    # Get the twitter results
+    if (twitter_search(key,secret,token_key,token_secret,search_term,keyword) == 1):
+        python_sms(to,from_number,body)
+        print(print_message)
+
+
+def twitter_search(key,secret,token_key,token_secret,search_term,keyword):
+
+    # Initialize a flag to show that there is a trailer
+
+
+    #  Create Twitter API class  with authentication
+    api = twitter.Api(consumer_key= key,
+                      consumer_secret= secret,
+                      access_token_key= token_key,
+                      access_token_secret= token_secret)
+
+    # Initialiize the API search by the search query
+    result = api.GetSearch(search_term,result_type='recent',count=10)
+    flag = 0
+
+    # Filter the search results
+    for i in result:
+        screen_name = i.user.screen_name
+        # If the search term matches up
+        if (screen_name == search_term):
+            # Check if the keyword is  in title
+            if (keyword[0] in i.text.lower()) & (keyword[1] in i.text.lower()) & (keyword[2] in i.text.lower()):
+                flag = 1
+
+    return(flag)
+
+def python_sms(to,from_number,body):
+    # Authentication
+    client = TwilioRestClient(account,token)
+
+    message = client.sms.messages.create(to=to,
+                                        from_= from_number,
+                                        body=body)
+
+# Program Main body
+if __name__ == "__main__":
+    try:
+        while(sys.stdout != print_message):
+            main()
+    except KeyboardInterrupt:
+        print("The Program is stopped by the user!")
+    except twitter.error.TwitterError:
+        print("Rate Limit Exceeded!")
